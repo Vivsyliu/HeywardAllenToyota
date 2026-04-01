@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check-In Overview</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f6f8fa; color: #1a1f36; font-family: Arial, sans-serif; font-size: 14px; min-height: 100vh; }
+
+  /* NAV */
+  .topnav { background: #fff; border-bottom: 1px solid #e3e8ef; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 30; gap: 16px; flex-wrap: wrap; }
+  .topnav-left { display: flex; align-items: center; gap: 10px; }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+  .logo-text { font-size: 15px; font-weight: 700; color: #1a1f36; }
+  .logo-sub { font-size: 13px; color: #8792a2; font-weight: 400; }
+
+  /* DATE PICKER */
+  .date-picker-wrap { display: flex; align-items: center; gap: 8px; }
+  .date-picker-label { font-size: 11px; color: #8792a2; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap; }
+  .date-picker { display: flex; align-items: center; gap: 6px; }
+  .date-input-wrap { position: relative; }
+  .date-input { border: 1px solid #e3e8ef; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: Arial, sans-serif; color: #1a1f36; background: #fff; cursor: pointer; outline: none; width: 130px; }
+  .date-input:focus { border-color: #1a1f36; }
+  .date-sep { font-size: 12px; color: #c8cfd8; }
+  .date-clear { background: none; border: none; color: #c8cfd8; font-size: 16px; cursor: pointer; padding: 0 2px; line-height: 1; }
+  .date-clear:hover { color: #8792a2; }
+
+  /* TABS */
+  .tabs-bar { background: #fff; border-bottom: 1px solid #e3e8ef; padding: 0 24px; display: flex; align-items: flex-end; }
+  .tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 12px 16px; font-size: 13px; font-family: Arial, sans-serif; color: #8792a2; cursor: pointer; transition: color 0.15s; font-weight: 500; white-space: nowrap; }
+  .tab:hover { color: #1a1f36; }
+  .tab.active { color: #1a1f36; border-bottom: 2px solid #1a1f36; font-weight: 600; }
+  .tab-count { font-size: 11px; background: #f0f1f3; color: #8792a2; border-radius: 10px; padding: 1px 6px; margin-left: 5px; }
+  .tab.active .tab-count { background: #1a1f36; color: #fff; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  /* STATS */
+  .stats-row { display: flex; background: #fff; border: 1px solid #e3e8ef; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+  .stat-cell { flex: 1; padding: 18px 20px; border-right: 1px solid #e3e8ef; }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell.clickable { cursor: pointer; transition: background 0.15s; }
+  .stat-cell.clickable:hover { background: #fff8f8; }
+  .stat-label { font-size: 11px; color: #8792a2; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 600; }
+  .stat-value { font-size: 26px; font-weight: 700; color: #1a1f36; line-height: 1; }
+  .stat-sub { font-size: 11px; color: #c8cfd8; margin-top: 4px; }
+  .stat-value.green { color: #0d7a4e; }
+  .stat-value.yellow { color: #b45309; }
+  .stat-value.red { color: #b91c1c; }
+  .stat-value.csi-red { color: #b91c1c; }
+
+  /* SECTION */
+  .section { background: #fff; border: 1px solid #e3e8ef; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+  .section-header { padding: 14px 20px; border-bottom: 1px solid #f0f2f5; display: flex; align-items: center; justify-content: space-between; }
+  .section-header.collapsible { cursor: pointer; user-select: none; }
+  .section-header.collapsible:hover { background: #fafbfc; }
+  .section-title { font-size: 13px; font-weight: 600; color: #1a1f36; }
+  .section-hint { font-size: 12px; color: #c8cfd8; }
+  .section-right { display: flex; align-items: center; gap: 10px; }
+  .collapse-icon { font-size: 11px; color: #c8cfd8; transition: transform 0.2s; }
+  .collapse-icon.open { transform: rotate(180deg); }
+  .section-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .badge-checkin { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .badge-checkout { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+  .collapsible-body { display: none; }
+  .collapsible-body.open { display: block; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* BARS */
+  .bar-item { padding: 11px 20px; border-bottom: 1px solid #f6f8fa; display: flex; align-items: center; gap: 12px; }
+  .bar-item:last-child { border-bottom: none; }
+  .bar-rank { width: 18px; text-align: center; font-size: 11px; color: #c8cfd8; font-weight: 600; flex-shrink: 0; }
+  .bar-name { width: 145px; font-size: 12px; color: #3c4257; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 6px; background: #f0f2f5; border-radius: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 10px; transition: width 0.4s; }
+  .fill-green { background: linear-gradient(90deg,#34d399,#10b981); }
+  .fill-yellow { background: linear-gradient(90deg,#fbbf24,#f59e0b); }
+  .fill-red { background: linear-gradient(90deg,#f87171,#ef4444); }
+  .bar-pct { font-size: 13px; font-weight: 700; min-width: 34px; text-align: right; }
+  .bar-fraction { font-size: 11px; color: #c8cfd8; min-width: 40px; text-align: right; }
+  .green { color: #0d7a4e; } .yellow { color: #b45309; } .red { color: #b91c1c; }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead tr { border-bottom: 1px solid #f0f2f5; }
+  th { padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 600; color: #8792a2; text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap; }
+  th.center { text-align: center; }
+  tbody tr { border-bottom: 1px solid #f6f8fa; transition: background 0.1s; cursor: pointer; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafbfc; }
+  td { padding: 9px 12px; color: #3c4257; vertical-align: middle; }
+  td.name-cell { font-size: 12px; color: #1a1f36; font-weight: 500; white-space: nowrap; max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+  td.center { text-align: center; }
+  .yn-badge { display: inline-flex; width: 20px; height: 20px; border-radius: 5px; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+  .yn-y { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+  .yn-n { background: #fff0f0; color: #b91c1c; border: 1px solid #fecaca; }
+  .advisor-pill { display: inline-block; border-radius: 20px; padding: 2px 9px; font-size: 11px; font-weight: 500; }
+  .pill-cody { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+  .pill-daniel { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .pill-jason { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .score-badge { font-size: 12px; font-weight: 700; }
+  .csi-flag { font-size: 11px; color: #ef4444; margin-left: 4px; }
+
+  /* FINDINGS */
+  .findings-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .finding-cell { padding: 14px 20px; border-right: 1px solid #f0f2f5; border-bottom: 1px solid #f0f2f5; }
+  .finding-cell:nth-child(even) { border-right: none; }
+  .finding-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .finding-label { font-size: 10px; font-weight: 600; color: #8792a2; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .finding-value { font-size: 13px; color: #1a1f36; font-weight: 500; }
+  .finding-value.green { color: #0d7a4e; }
+  .finding-value.red { color: #b91c1c; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,31,54,0.4); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border: 1px solid #e3e8ef; border-radius: 10px; max-width: 580px; width: 100%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+  .modal-head { padding: 18px 24px; border-bottom: 1px solid #f0f2f5; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: #fff; z-index: 1; }
+  .modal-head-label { font-size: 10px; font-weight: 600; color: #ef4444; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .modal-head-title { font-size: 16px; font-weight: 700; color: #1a1f36; }
+  .modal-close { background: #f6f8fa; border: 1px solid #e3e8ef; color: #8792a2; border-radius: 6px; width: 30px; height: 30px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
+  .modal-close:hover { background: #e3e8ef; color: #1a1f36; }
+  .modal-body { padding: 20px 24px; }
+  .csi-card { border: 1px solid #fecaca; border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
+  .csi-card:last-child { margin-bottom: 0; }
+  .csi-card-head { padding: 12px 16px; background: #fff8f8; border-bottom: 1px solid #fecaca; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .csi-card-name { font-size: 13px; font-weight: 700; color: #1a1f36; }
+  .csi-card-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .severity-high { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .severity-medium { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .type-tag { border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .type-checkin { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .type-checkout { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+  .csi-card-body { padding: 12px 16px; }
+  .csi-risk-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #fef2f2; font-size: 12px; color: #4a5568; line-height: 1.5; }
+  .csi-risk-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .csi-risk-dot { color: #fca5a5; flex-shrink: 0; }
+
+  .no-data { padding: 28px 20px; text-align: center; font-size: 13px; color: #c8cfd8; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <div class="logo-dot"></div>
+    <span class="logo-text">Mae</span>
+    <span class="logo-sub">/ Hayward Allen Toyota</span>
+  </div>
+  <div class="date-picker-wrap">
+    <span class="date-picker-label">Filter by date</span>
+    <div class="date-picker">
+      <input type="date" class="date-input" id="dateFrom" onchange="onDateChange()" />
+      <span class="date-sep" id="dateSep" style="display:none">→</span>
+      <input type="date" class="date-input" id="dateTo" style="display:none" onchange="onDateChange()" />
+      <button class="date-clear" id="dateClear" style="display:none" onclick="clearDates()" title="Clear dates">×</button>
+    </div>
+  </div>
+</div>
+
+<div class="tabs-bar" id="tabsBar"></div>
+
+<div class="page">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-label">Check-In Convos</div>
+      <div class="stat-value" id="statCiTotal">—</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Check-In Avg</div>
+      <div class="stat-value" id="statCheckin">—</div>
+      <div class="stat-sub">completion rate</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Check-Out Convos</div>
+      <div class="stat-value" id="statCoTotal">—</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Check-Out Avg</div>
+      <div class="stat-value" id="statCheckout">—</div>
+      <div class="stat-sub">completion rate</div>
+    </div>
+    <div class="stat-cell clickable" onclick="openModal()" id="csiCell">
+      <div class="stat-label" style="color:#ef4444">CSI Risk</div>
+      <div class="stat-value csi-red" id="statCsi">—</div>
+      <div class="stat-sub" id="csiArrow">View flagged →</div>
+    </div>
+  </div>
+
+  <!-- Key Findings -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Key Findings</div>
+    </div>
+    <div class="findings-grid" id="findings"></div>
+  </div>
+
+  <!-- Bars side by side -->
+  <div class="two-col">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Check-In Questions</div>
+        <span class="section-badge badge-checkin">Check-In</span>
+      </div>
+      <div id="checkinBars"></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Check-Out Questions</div>
+        <span class="section-badge badge-checkout">Check-Out</span>
+      </div>
+      <div id="checkoutBars"></div>
+    </div>
+  </div>
+
+  <!-- Check-In Conversations (collapsed) -->
+  <div class="section">
+    <div class="section-header collapsible" onclick="toggleSection('ciSection','ciIcon')">
+      <div class="section-title">Check-In Conversations <span class="section-hint" id="checkinTableCount" style="margin-left:8px"></span></div>
+      <div class="section-right">
+        <span class="collapse-icon" id="ciIcon">▼</span>
+      </div>
+    </div>
+    <div class="collapsible-body" id="ciSection">
+      <div class="tbl-wrap">
+        <table><thead id="ciTHead"></thead><tbody id="ciTBody"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Check-Out Conversations (collapsed) -->
+  <div class="section">
+    <div class="section-header collapsible" onclick="toggleSection('coSection','coIcon')">
+      <div class="section-title">Check-Out Conversations <span class="section-hint" id="checkoutTableCount" style="margin-left:8px"></span></div>
+      <div class="section-right">
+        <span class="collapse-icon" id="coIcon">▼</span>
+      </div>
+    </div>
+    <div class="collapsible-body" id="coSection">
+      <div class="tbl-wrap">
+        <table><thead id="coTHead"></thead><tbody id="coTBody"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-label">Flagged Conversations</div>
+        <div class="modal-head-title">CSI Risk Radar</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+// Check-In: 8 questions (Signature removed)
+const CI_Q     = ["Best contact #","Confirm email","Confirm phone","Waiting","Shuttle","Pricing reviewed","Expectation set","Vehicle satisfaction"];
+const CI_SHORT = ["Contact","Email","Phone","Waiting","Shuttle","Pricing","Expectation","Veh. Sat."];
+
+// Original answers had Signature at index 0 — stripped below
+const CHECKIN_RAW = [
+  // Cody Self — Mar 30-31
+  {advisor:"Cody Self", customer:"Acog",                  date:"2026-03-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Ramona Lopretto",        date:"2026-03-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Maintenance Contract",   date:"2026-03-30", a:[1,0,0,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Jackie Davis Maint.",    date:"2026-03-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"93,439 Miles Customer",  date:"2026-03-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"751-7819",               date:"2026-03-30", a:[1,1,0,1,0,1,1,0]},
+  {advisor:"Cody Self", customer:"William",                date:"2026-03-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Clayton",                date:"2026-03-30", a:[1,0,0,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Total Appearance OC",    date:"2026-03-30", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Starter/Fuse Truck",     date:"2026-03-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Cody Self", customer:"Marcos",                 date:"2026-03-31", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Carrick",                date:"2026-03-31", a:[0,0,0,1,0,1,1,0]},
+  // Daniel Hampton — Mar 31
+  {advisor:"Daniel Hampton", customer:"Amy Moulton",         date:"2026-03-31", a:[0,1,1,1,1,1,1,0]},
+  {advisor:"Daniel Hampton", customer:"Janice Valenco",      date:"2026-03-31", a:[0,1,1,0,0,1,0,0]},
+  {advisor:"Daniel Hampton", customer:"Lauren Cobb Foster",  date:"2026-03-31", a:[0,1,0,1,1,0,0,0]},
+  {advisor:"Daniel Hampton", customer:"Michael Hyman",       date:"2026-03-31", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"David Burgess",       date:"2026-03-31", a:[0,1,1,1,1,1,0,0]},
+  {advisor:"Daniel Hampton", customer:"Maria Martinez",      date:"2026-03-31", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Daniel Hampton", customer:"Christopher Estes",   date:"2026-03-31", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"Special-Order Tire",  date:"2026-03-31", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"Car Wash/Detail",     date:"2026-03-31", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Daniel Hampton", customer:"kgray1957@aol.com",   date:"2026-03-31", a:[0,0,0,1,1,1,1,0]},
+  // Jason Trapanese — Mar 31
+  {advisor:"Jason Trapanese", customer:"Party Appt Customer",    date:"2026-03-31", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Mrs. Taylor",            date:"2026-03-31", a:[0,0,0,0,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Miss Caroline/Birdie",   date:"2026-03-31", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Jason Trapanese", customer:"Mrs. Hagen",             date:"2026-03-31", a:[0,0,0,0,1,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Justin Rychak",          date:"2026-03-31", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Maint. Required Light",  date:"2026-03-31", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"678-863-7041",           date:"2026-03-31", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Jason Trapanese", customer:"Megan",                  date:"2026-03-31", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Read Student",           date:"2026-03-31", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Tito Suarez",            date:"2026-03-31", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Jason Trapanese", customer:"Megan (2)",              date:"2026-03-31", a:[0,0,0,1,0,1,0,0]},
+  // Jason Trapanese — Apr 1
+  {advisor:"Jason Trapanese", customer:"Mr. Arnold",             date:"2026-04-01", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Shuttle Customer 76473", date:"2026-04-01", a:[0,0,0,1,1,1,1,0]},
+  {advisor:"Jason Trapanese", customer:"Mrs. Dunlop",            date:"2026-04-01", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Otto Schulting",         date:"2026-04-01", a:[0,0,0,0,0,0,1,0]},
+  {advisor:"Jason Trapanese", customer:"Truck Radio Screen",     date:"2026-04-01", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Misses Ramage",          date:"2026-04-01", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Mr. McCray",             date:"2026-04-01", a:[0,0,1,1,0,0,0,0]},
+  // Cody Self — Apr 1 afternoon
+  {advisor:"Cody Self", customer:"AC Not Blowing 1469",          date:"2026-04-01", a:[0,0,1,1,1,0,0,0]},
+  {advisor:"Cody Self", customer:"706-543-543",                  date:"2026-04-01", a:[1,1,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Blackwell",                    date:"2026-04-01", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Kendra Green",                 date:"2026-04-01", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Dodgers Fan ToyotaCare",       date:"2026-04-01", a:[0,0,1,1,0,0,0,0]},
+];
+
+const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
+const CO_SHORT = ["Next Appt","Active Del.","Anything Else","Follow-Up"];
+
+const CHECKOUT_DATA = [
+  // Cody Self — Apr 1
+  {advisor:"Cody Self",       customer:"Warranty Service Customer",  date:"2026-04-01", a:[0,1,1,1]},
+  {advisor:"Cody Self",       customer:"Truck Starter Customer",     date:"2026-04-01", a:[0,1,0,1]},
+  {advisor:"Cody Self",       customer:"Dan Cavanaugh",              date:"2026-04-01", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Mr. Howard",                 date:"2026-04-01", a:[0,0,0,0]},
+  {advisor:"Cody Self",       customer:"Corolla Customer",           date:"2026-04-01", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Tire Rotation/Rear Wiper",   date:"2026-04-01", a:[0,0,0,0]},
+  {advisor:"Cody Self",       customer:"Battery/Tire Rotation",      date:"2026-04-01", a:[0,1,0,0]},
+  // Jason Trapanese — Apr 1
+  {advisor:"Jason Trapanese", customer:"Ms. Lucas",                  date:"2026-04-01", a:[0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Unknown Customer A",         date:"2026-04-01", a:[0,1,0,1]},
+  {advisor:"Jason Trapanese", customer:"Unknown Customer B",         date:"2026-04-01", a:[0,1,0,0]},
+];
+
+const CSI_RISKS = [
+
+  { customer:"William",                advisor:"Cody Self",       type:"checkin",  severity:"medium", risks:[
+    "Customer brought up how there's still no fix available for the rear lamp light issue",
+    "Customer says he does take to a quick tube for quick oil changes",
+    "Customer mentioned he has to drive an hour to get to the dealership which is a pain in the rear end",
+    "Customer did say he likes the people at this dealership"
+  ]},
+  { customer:"Janice Valenco",         advisor:"Daniel Hampton",  type:"checkin",  severity:"high", risks:[
+    "Customer discovered she was charged for two pairs of windshield wipers",
+    "She had only requested one pair — back wipers replaced without consent",
+    "Billing dispute left unresolved — high CSI impact if not corrected"
+  ]},
+  { customer:"Car Wash/Detail",        advisor:"Daniel Hampton",  type:"checkin",  severity:"high", risks:[
+    "Customer referenced prior experience where advisor was 'very rude', indicating lingering dissatisfaction",
+    "Current interaction is disorganized and informal, with side comments and unclear ownership of the customer ('that's for John')",
+    "Poor rapport and empathy; no clear acknowledgment of customer's prior negative experience or reassurance it will be better",
+    "Lack of clear process explanation or timeline for the car wash/detail service",
+    "Overall tone feels casual and somewhat dismissive rather than professional and attentive"
+  ]},
+  { customer:"Tire Rotation/Rear Wiper", advisor:"Cody Self",     type:"checkout", severity:"high", risks:[
+    "Customer said 'kind of a long service don't you think?'"
+  ]},
+  { customer:"Warranty Service Customer", advisor:"Cody Self",    type:"checkout", severity:"medium", risks:[
+    "Customer asked during delivery about when their warranty expires for all covered services",
+    "A definitive answer was not shared — customer left without clarity on coverage timeline"
+  ]},
+  { customer:"Tire Rotation/Rear Wiper", advisor:"Cody Self",     type:"checkout", severity:"high", risks:[
+    "Customer expressed frustration at checkout saying \"kind of a long service don\'t you think?\"",
+    "No empathy or acknowledgment of wait time from the advisor",
+    "Customer sentiment at departure is negative — high risk of poor CSI score"
+  ]},
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese"];
+let currentAdvisor = "all";
+let dateFrom = null;
+let dateTo   = null;
+let dateClickCount = 0;
+
+// ── HELPERS ───────────────────────────────────────────────────
+const colorClass = pct => pct>=50?"green":pct>=25?"yellow":"red";
+const fillClass   = pct => pct>=50?"fill-green":pct>=25?"fill-yellow":"fill-red";
+const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":"pill-jason";
+
+function inDateRange(d) {
+  if(!dateFrom) return true;
+  if(!dateTo)   return d.date === dateFrom;
+  return d.date >= dateFrom && d.date <= dateTo;
+}
+
+function filterBy(data) {
+  return data.filter(d => (currentAdvisor==="all" || d.advisor===currentAdvisor) && inDateRange(d));
+}
+function filterCSI() {
+  // CSI filtered by advisor only (no date on CSI records)
+  return currentAdvisor==="all" ? CSI_RISKS : CSI_RISKS.filter(r=>r.advisor===currentAdvisor);
+}
+
+function avgCompletion(rows, numQ) {
+  if(!rows.length) return null;
+  const yes = rows.reduce((s,r)=>s+r.a.reduce((a,b)=>a+b,0),0);
+  return Math.round(yes/(rows.length*numQ)*100);
+}
+
+// ── DATE LOGIC ────────────────────────────────────────────────
+function onDateChange() {
+  const from = document.getElementById("dateFrom").value;
+  const to   = document.getElementById("dateTo").value;
+
+  if(from && !dateTo) {
+    // First selection
+    dateFrom = from;
+    dateTo = null;
+    dateClickCount = 1;
+    document.getElementById("dateSep").style.display = "none";
+    document.getElementById("dateTo").style.display = "none";
+    document.getElementById("dateClear").style.display = "inline";
+    // Show second picker
+    setTimeout(()=>{
+      document.getElementById("dateSep").style.display = "inline";
+      document.getElementById("dateTo").style.display = "inline";
+    }, 100);
+  }
+
+  if(to) {
+    if(to === from) {
+      // Same date clicked again — treat as clear
+      clearDates();
+      return;
+    }
+    dateFrom = from < to ? from : to;
+    dateTo   = from < to ? to   : from;
+    document.getElementById("dateClear").style.display = "inline";
+  }
+
+  render();
+}
+
+function clearDates() {
+  dateFrom = null;
+  dateTo   = null;
+  document.getElementById("dateFrom").value = "";
+  document.getElementById("dateTo").value   = "";
+  document.getElementById("dateSep").style.display = "none";
+  document.getElementById("dateTo").style.display  = "none";
+  document.getElementById("dateClear").style.display = "none";
+  render();
+}
+
+// ── COLLAPSE ──────────────────────────────────────────────────
+function toggleSection(bodyId, iconId) {
+  const body = document.getElementById(bodyId);
+  const icon = document.getElementById(iconId);
+  const isOpen = body.classList.contains("open");
+  body.classList.toggle("open", !isOpen);
+  icon.classList.toggle("open", !isOpen);
+}
+
+// ── TABS ──────────────────────────────────────────────────────
+function renderTabs() {
+  const counts = {"all":CHECKIN_RAW.length};
+  ALL_ADVISORS.slice(1).forEach(a=>{ counts[a]=CHECKIN_RAW.filter(d=>d.advisor===a).length; });
+  document.getElementById("tabsBar").innerHTML = ALL_ADVISORS.map(a=>`
+    <button class="tab ${a===currentAdvisor?"active":""}" onclick="setAdvisor('${a}')">
+      ${a==="all"?"All Advisors":a} <span class="tab-count">${counts[a]}</span>
+    </button>`).join("");
+}
+
+// ── BARS ──────────────────────────────────────────────────────
+function renderBars(containerId, data, questions) {
+  const rows = filterBy(data);
+  const el = document.getElementById(containerId);
+  if(!rows.length) { el.innerHTML=`<div class="no-data">No data for this selection</div>`; return; }
+  const stats = questions.map((q,i)=>{
+    const yes=rows.reduce((s,r)=>s+r.a[i],0);
+    return {q,yes,total:rows.length,pct:Math.round(yes/rows.length*100)};
+  }).sort((a,b)=>b.pct-a.pct);
+  el.innerHTML = stats.map((s,i)=>`
+    <div class="bar-item">
+      <div class="bar-rank">${i+1}</div>
+      <div class="bar-name">${s.q}</div>
+      <div class="bar-track"><div class="bar-fill ${fillClass(s.pct)}" style="width:${s.pct}%"></div></div>
+      <div class="bar-pct ${colorClass(s.pct)}">${s.pct}%</div>
+      <div class="bar-fraction">${s.yes}/${s.total}</div>
+    </div>`).join("");
+}
+
+// ── TABLES ────────────────────────────────────────────────────
+function renderTable(headId, bodyId, countId, data, questions, shorts) {
+  const rows = filterBy(data);
+  document.getElementById(countId).textContent = `(${rows.length})`;
+  const showAdv = currentAdvisor==="all";
+  document.getElementById(headId).innerHTML = `<tr>
+    <th>Customer</th>
+    ${showAdv?'<th>Advisor</th>':""}
+    <th>Date</th>
+    ${shorts.map(q=>`<th class="center">${q}</th>`).join("")}
+    <th class="center">Score</th>
+  </tr>`;
+  if(!rows.length) {
+    document.getElementById(bodyId).innerHTML=`<tr><td colspan="99" class="no-data">No data for this selection</td></tr>`;
+    return;
+  }
+  document.getElementById(bodyId).innerHTML = rows.map(row=>{
+    const score=Math.round(row.a.reduce((a,b)=>a+b,0)/questions.length*100);
+    const csi=CSI_RISKS.find(r=>r.customer===row.customer&&r.advisor===row.advisor);
+    const dateStr = row.date ? new Date(row.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}) : "";
+    return `<tr onclick="${csi?`openModalFor('${row.customer}','${row.advisor}')`:""}" style="${csi?"cursor:pointer":""}">
+      <td class="name-cell">${row.customer}${csi?'<span class="csi-flag">⚠</span>':""}</td>
+      ${showAdv?`<td><span class="advisor-pill ${pillClass(row.advisor)}">${row.advisor.split(" ")[0]}</span></td>`:""}
+      <td style="color:#8792a2;font-size:11px;white-space:nowrap">${dateStr}</td>
+      ${row.a.map(v=>`<td class="center"><span class="yn-badge ${v?"yn-y":"yn-n"}">${v?"Y":"N"}</span></td>`).join("")}
+      <td class="center"><span class="score-badge ${colorClass(score)}">${score}%</span></td>
+    </tr>`;
+  }).join("");
+}
+
+// ── FINDINGS ──────────────────────────────────────────────────
+function renderFindings(ciRows, coRows, csiRows) {
+  const ciSorted = CI_Q.map((q,i)=>{
+    const yes=ciRows.reduce((s,r)=>s+r.a[i],0);
+    return {q,pct:ciRows.length?Math.round(yes/ciRows.length*100):0};
+  }).sort((a,b)=>b.pct-a.pct);
+  const coSorted = CO_Q.map((q,i)=>{
+    const yes=coRows.reduce((s,r)=>s+r.a[i],0);
+    return {q,pct:coRows.length?Math.round(yes/coRows.length*100):0};
+  }).sort((a,b)=>b.pct-a.pct);
+  const neverCI = ciSorted.filter(s=>s.pct===0).map(s=>s.q);
+  const cells = [
+    {label:"Check-In: most completed",  value:`${ciSorted[0]?.q} — ${ciSorted[0]?.pct}%`,                                              cls:"green"},
+    {label:"Check-In: least completed", value:`${ciSorted[ciSorted.length-1]?.q} — ${ciSorted[ciSorted.length-1]?.pct}%`,              cls:"red"},
+    {label:"Check-Out: most completed", value:coRows.length?`${coSorted[0]?.q} — ${coSorted[0]?.pct}%`:"No data for this selection",    cls:coRows.length?"green":""},
+    {label:"CSI risks flagged",         value:csiRows.length?`${csiRows.length} conversation${csiRows.length>1?"s":""} — tap to review`:"None", cls:csiRows.length?"red":"green"},
+  ];
+  document.getElementById("findings").innerHTML = cells.map(c=>`
+    <div class="finding-cell">
+      <div class="finding-label">${c.label}</div>
+      <div class="finding-value ${c.cls}">${c.value}</div>
+    </div>`).join("");
+}
+
+// ── RENDER ────────────────────────────────────────────────────
+function render() {
+  renderTabs();
+  const ciRows  = filterBy(CHECKIN_RAW);
+  const coRows  = filterBy(CHECKOUT_DATA);
+  const csiRows = filterCSI();
+
+  // Stats
+  document.getElementById("statCiTotal").textContent = ciRows.length;
+  document.getElementById("statCoTotal").textContent = coRows.length || "—";
+  const ciAvg = avgCompletion(ciRows, CI_Q.length);
+  const coAvg = avgCompletion(coRows, CO_Q.length);
+  const ciEl = document.getElementById("statCheckin");
+  ciEl.textContent = ciAvg!==null?ciAvg+"%":"—";
+  ciEl.className = "stat-value "+(ciAvg!==null?colorClass(ciAvg):"");
+  const coEl = document.getElementById("statCheckout");
+  coEl.textContent = coAvg!==null?coAvg+"%":"—";
+  coEl.className = "stat-value "+(coAvg!==null?colorClass(coAvg):"");
+  document.getElementById("statCsi").textContent = csiRows.length;
+  document.getElementById("csiArrow").style.display = csiRows.length?"block":"none";
+
+  renderFindings(ciRows, coRows, csiRows);
+  renderBars("checkinBars", CHECKIN_RAW, CI_Q);
+  renderBars("checkoutBars", CHECKOUT_DATA, CO_Q);
+  renderTable("ciTHead","ciTBody","checkinTableCount", CHECKIN_RAW, CI_Q, CI_SHORT);
+  renderTable("coTHead","coTBody","checkoutTableCount", CHECKOUT_DATA, CO_Q, CO_SHORT);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+function openModalFor(customer, advisor) {
+  const risk = CSI_RISKS.find(r=>r.customer===customer&&r.advisor===advisor);
+  if(!risk) return;
+  renderModal([risk]);
+  document.getElementById("modalOverlay").classList.add("open");
+}
+function openModal() {
+  const risks = filterCSI();
+  if(!risks.length) return;
+  renderModal(risks);
+  document.getElementById("modalOverlay").classList.add("open");
+}
+function renderModal(risks) {
+  document.getElementById("modalContent").innerHTML = risks.map(r=>`
+    <div class="csi-card">
+      <div class="csi-card-head">
+        <div class="csi-card-name">${r.customer}</div>
+        <div class="csi-card-meta">
+          <span class="advisor-pill ${pillClass(r.advisor)}">${r.advisor}</span>
+          <span class="type-tag ${r.type==="checkin"?"type-checkin":"type-checkout"}">${r.type==="checkin"?"Check-In":"Check-Out"}</span>
+          <span class="${r.severity==="high"?"severity-high":"severity-medium"}">${r.severity} risk</span>
+        </div>
+      </div>
+      <div class="csi-card-body">
+        ${r.risks.length ? r.risks.map(x=>`<div class="csi-risk-item"><span class="csi-risk-dot">—</span><span>${x}</span></div>`).join("") : "<div style='padding:6px 0;font-size:12px;color:#c8cfd8'>No additional notes</div>"}
+      </div>
+    </div>`).join("");
+}
+function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+function handleOverlayClick(e) { if(e.target===document.getElementById("modalOverlay")) closeModal(); }
+
+function setAdvisor(adv) { currentAdvisor=adv; render(); }
+
+render();
+</script>
+</body>
+</html>
