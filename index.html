@@ -423,6 +423,18 @@ const CHECKIN_RAW = [
   {advisor:"Jason Trapanese", customer:"10,000 Mile Service Customer Shygon", date:"2026-04-08", a:[0,0,0,1,0,0,0,0]},
   {advisor:"Jason Trapanese", customer:"Honey Oil Change Customer",      date:"2026-04-08", a:[0,0,0,0,0,1,0,0]},
   {advisor:"Jason Trapanese", customer:"ABS Brake Light Customer",       date:"2026-04-08", a:[0,0,0,0,0,1,0,0]},
+  // Cody Self — Apr 9
+  {advisor:"Cody Self", customer:"Dup Shaw 5K Service Customer",             date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"142882 Miles Oil Change Customer",         date:"2026-04-09", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Leslie or Dan Parham",                     date:"2026-04-09", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Brand New Vehicle Oil Change Customer",    date:"2026-04-09", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Cody Self", customer:"Biggs",                                    date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Williams",                                 date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Talisha",                                  date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"High-Lift 4Runner Customer",               date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Mr. Contreras",                            date:"2026-04-09", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Cody Self", customer:"Tire Customer with 6016 mileage",          date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Stuart McCarty",                           date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -458,6 +470,13 @@ const CHECKOUT_DATA = [
   {advisor:"Cody Self",       customer:"Unknown Customer (co Apr7 B)", date:"2026-04-07", a:[0,1,0,0]},
   {advisor:"Cody Self",       customer:"Unknown Customer (co Apr7 C)", date:"2026-04-07", a:[0,0,0,0]},
   {advisor:"Cody Self",       customer:"Unknown Customer (co Apr7 D)", date:"2026-04-07", a:[0,0,0,0]},
+  // Cody Self — Apr 9
+  {advisor:"Cody Self",       customer:"Thousand Dollars Recommended Service Customer", date:"2026-04-09", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Oil Change Tire Rotation Customer",  date:"2026-04-09", a:[0,0,1,0]},
+  {advisor:"Cody Self",       customer:"Ms. Savage",                         date:"2026-04-09", a:[0,1,1,0]},
+  {advisor:"Cody Self",       customer:"Camry Customer",                     date:"2026-04-09", a:[0,1,1,0]},
+  {advisor:"Cody Self",       customer:"591.39 Invoice Customer",            date:"2026-04-09", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Tire Rotation Customer",             date:"2026-04-09", a:[0,1,1,0]},
 ];
 
 const CSI_RISKS = [
@@ -502,6 +521,23 @@ const CSI_RISKS = [
   { customer:"Skid Plate Customer",    advisor:"Daniel Hampton",   date:"2026-04-06", type:"checkin",  severity:"high", risks:[
     "Customer concern about missing skid plate after recent service, potential dealership fault",
     "Advisor acknowledges issue and commits to investigate and 'get this handled'"
+  ]},
+  { customer:"Leslie or Dan Parham",   advisor:"Cody Self",       date:"2026-04-09", type:"checkin",  severity:"medium", risks:[
+    "Customer arrived not knowing what their next service was for",
+    "Customer expected to be told what services would be performed and explicitly asked twice more to clarify",
+    "\"Whatever my next service is\"",
+    "\"Check and see which service this is. As in what did we do last time?\"",
+    "\"Are you gonna tell me what you need to do?\"",
+    "\"I'd like to know what you're doing. Can you tell me what you're doing?\""
+  ]},
+  { customer:"Tire Customer with 6016 mileage", advisor:"Cody Self", date:"2026-04-09", type:"checkin", severity:"high", risks:[
+    "Customer initiated conversation clearly frustrated about repeating information and multiple people handling check-in",
+    "ASM offers empathic explanation what the tablet does for them",
+    "\"What can I do for you?\"",
+    "\"I'm getting a set of tires. If I have to ask the same question for the third time.\"",
+    "\"This is crazy. I have three different people all doing the same.\"",
+    "Interaction ends functionally, no other concerns",
+    "Customer tag # 3497"
   ]},
 ];
 
