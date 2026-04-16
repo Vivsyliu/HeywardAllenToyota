@@ -435,6 +435,24 @@ const CHECKIN_RAW = [
   {advisor:"Cody Self", customer:"Mr. Contreras",                            date:"2026-04-09", a:[0,0,1,1,0,0,1,0]},
   {advisor:"Cody Self", customer:"Tire Customer with 6016 mileage",          date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
   {advisor:"Cody Self", customer:"Stuart McCarty",                           date:"2026-04-09", a:[0,0,1,1,0,0,0,0]},
+  // Jason Trapanese — Apr 10
+  {advisor:"Jason Trapanese", customer:"Mr. Frazier",                        date:"2026-04-10", a:[0,0,0,1,0,1,0,0]},
+  // Jason Trapanese — Apr 11
+  {advisor:"Jason Trapanese", customer:"Mrs. Bales",                         date:"2026-04-11", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Mrs. Thornton",                      date:"2026-04-11", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Mrs. Smart",                         date:"2026-04-11", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Husband Shopping Trucks Customer",   date:"2026-04-11", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Jason Trapanese", customer:"Leria",                              date:"2026-04-11", a:[0,0,0,1,0,0,0,0]},
+  // Cody Self — Apr 15
+  {advisor:"Cody Self", customer:"Huck",                                     date:"2026-04-15", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Cody Self", customer:"TPMS Malfunction Sienna Customer",         date:"2026-04-15", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Thomas",                                   date:"2026-04-15", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Cody Self", customer:"23 RAV4 Tire Customer",                    date:"2026-04-15", a:[1,0,1,1,1,0,0,0]},
+  {advisor:"Cody Self", customer:"Susan McKeever",                           date:"2026-04-15", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"105365 Miles Customer",                    date:"2026-04-15", a:[0,0,1,1,1,0,0,0]},
+  {advisor:"Cody Self", customer:"Courtney Pittman Hybrid Customer",         date:"2026-04-15", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Lucy Chandler 140k Miles Customer",        date:"2026-04-15", a:[1,0,1,1,0,1,0,0]},
+  {advisor:"Cody Self", customer:"Michael Oaks",                             date:"2026-04-15", a:[0,0,1,0,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -477,6 +495,15 @@ const CHECKOUT_DATA = [
   {advisor:"Cody Self",       customer:"Camry Customer",                     date:"2026-04-09", a:[0,1,1,0]},
   {advisor:"Cody Self",       customer:"591.39 Invoice Customer",            date:"2026-04-09", a:[0,1,0,0]},
   {advisor:"Cody Self",       customer:"Tire Rotation Customer",             date:"2026-04-09", a:[0,1,1,0]},
+  // Jason Trapanese — Apr 11
+  {advisor:"Jason Trapanese", customer:"Unknown Customer",                   date:"2026-04-11", a:[0,1,0,0]},
+  {advisor:"Jason Trapanese", customer:"Unknown Customer (co Apr11 B)",      date:"2026-04-11", a:[0,0,0,0]},
+  // Cody Self — Apr 15
+  {advisor:"Cody Self",       customer:"Unknown Customer (co Apr15)",        date:"2026-04-15", a:[0,0,0,0]},
+  {advisor:"Cody Self",       customer:"Toyota Care Customer",               date:"2026-04-15", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Trailer Harness Highlander Customer", date:"2026-04-15", a:[0,1,0,1]},
+  {advisor:"Cody Self",       customer:"Unknown Customer (co Apr15 B)",      date:"2026-04-15", a:[0,1,0,0]},
+  {advisor:"Cody Self",       customer:"Michaela",                           date:"2026-04-15", a:[0,0,0,1]},
 ];
 
 const CSI_RISKS = [
@@ -538,6 +565,11 @@ const CSI_RISKS = [
     "\"This is crazy. I have three different people all doing the same.\"",
     "Interaction ends functionally, no other concerns",
     "Customer tag # 3497"
+  ]},
+  { customer:"TPMS Malfunction Sienna Customer", advisor:"Cody Self", date:"2026-04-15", type:"checkin", severity:"medium", risks:[
+    "Customer describes concerns on a brand-new vehicle they bought at the dealership a week ago. After only driving it twice, customer received a malfunction notification in vehicle and was directed to visit their dealer. TPS sensor also came on.",
+    "Warning went away for 10 miles and then came on later that day and stuck there",
+    "Potential underlying concern about quality"
   ]},
 ];
 
