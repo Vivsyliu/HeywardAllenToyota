@@ -103,6 +103,7 @@
   .pill-cody { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
   .pill-daniel { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
   .pill-jason { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .pill-brett { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
   .score-badge { font-size: 12px; font-weight: 700; }
   .csi-flag { font-size: 11px; color: #ef4444; margin-left: 4px; }
 
@@ -493,6 +494,11 @@ const CHECKIN_RAW = [
   {advisor:"Daniel Hampton", customer:"Rotate Service Customer",             date:"2026-05-07", a:[0,1,1,0,0,0,0,0]},
   {advisor:"Daniel Hampton", customer:"Okamaria",                            date:"2026-05-07", a:[0,1,1,1,0,0,1,0]},
   {advisor:"Daniel Hampton", customer:"Valve Cover Gasket Customer",         date:"2026-05-07", a:[1,0,1,1,1,0,1,0]},
+  // Brett Self — May 12
+  {advisor:"Brett Self", customer:"Juliber Mantanares Recall",               date:"2026-05-12", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Brett Self", customer:"Hector Pacheco Oil Change",               date:"2026-05-12", a:[0,1,1,1,0,1,0,0]},
+  // Jason Trapanese — May 12
+  {advisor:"Jason Trapanese", customer:"Mrs. Swan",                          date:"2026-05-12", a:[0,0,0,0,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -651,7 +657,7 @@ const CSI_RISKS = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
-const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese"];
+const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self"];
 let currentAdvisor = "all";
 let dateFrom = null;
 let dateTo   = null;
@@ -660,7 +666,7 @@ let dateClickCount = 0;
 // ── HELPERS ───────────────────────────────────────────────────
 const colorClass = pct => pct>=50?"green":pct>=25?"yellow":"red";
 const fillClass   = pct => pct>=50?"fill-green":pct>=25?"fill-yellow":"fill-red";
-const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":"pill-jason";
+const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":"pill-brett";
 
 function inDateRange(d) {
   if(!dateFrom) return true;
