@@ -104,6 +104,7 @@
   .pill-daniel { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
   .pill-jason { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
   .pill-brett { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+  .pill-harry { background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
   .score-badge { font-size: 12px; font-weight: 700; }
   .csi-flag { font-size: 11px; color: #ef4444; margin-left: 4px; }
 
@@ -499,6 +500,42 @@ const CHECKIN_RAW = [
   {advisor:"Brett Self", customer:"Hector Pacheco Oil Change",               date:"2026-05-12", a:[0,1,1,1,0,1,0,0]},
   // Jason Trapanese — May 12
   {advisor:"Jason Trapanese", customer:"Mrs. Swan",                          date:"2026-05-12", a:[0,0,0,0,0,0,0,0]},
+  // Daniel Hampton — May 12
+  {advisor:"Daniel Hampton", customer:"Jasmine Pahl",                         date:"2026-05-12", a:[0,0,0,1,1,1,1,0]},
+  {advisor:"Daniel Hampton", customer:"Dale Kenner",                          date:"2026-05-12", a:[0,1,1,1,0,1,0,0]},
+  {advisor:"Daniel Hampton", customer:"Oil Change Appointment Customer",      date:"2026-05-12", a:[0,1,1,1,0,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"Jessica Mullenberg",                   date:"2026-05-12", a:[1,0,1,1,1,0,0,0]},
+  {advisor:"Daniel Hampton", customer:"Yaris Cleaning Customer",              date:"2026-05-12", a:[0,1,1,0,1,1,1,0]},
+  {advisor:"Daniel Hampton", customer:"James Davis",                          date:"2026-05-12", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"Waiting Customer for Two Services",    date:"2026-05-12", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Daniel Hampton", customer:"Mark Willis",                          date:"2026-05-12", a:[0,1,1,1,1,0,1,0]},
+  // Harry Havener — May 12
+  {advisor:"Harry Havener", customer:"Don Smith",                             date:"2026-05-12", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Scott",                                 date:"2026-05-12", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Harry Havener", customer:"5,000 Mile Toyota Camry Customer",     date:"2026-05-12", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Harry Havener", customer:"20,000 Mile Service Customer",         date:"2026-05-12", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Nassau Way",                            date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Nail in Tire Customer 42,601 Miles",   date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Oil Change Customer 70 or 75 Miles",   date:"2026-05-12", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Rebecca White",                         date:"2026-05-12", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"Free Tires Customer",                   date:"2026-05-12", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"David Moon",                            date:"2026-05-12", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Harry Havener", customer:"149 Customer",                          date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  // Cody Self — May 12
+  {advisor:"Cody Self", customer:"10,000 Mile Service Customer",              date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Vadney 30,000 mile service",                date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Shepherd",                                  date:"2026-05-12", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Four Wheeler Customer",                     date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Unknown Customer (ci May12 CS)",            date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"11:30 Appointment 13663 Miles Customer",   date:"2026-05-12", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Harris",                                    date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Thayer",                                    date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Partigree",                                 date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"1660 Phone Customer",                       date:"2026-05-12", a:[0,0,0,1,0,1,1,0]},
+  {advisor:"Cody Self", customer:"Nancy Frederick",                           date:"2026-05-12", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Cody Self", customer:"ELA Lock",                                  date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Michelle Short",                            date:"2026-05-12", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Cody Self", customer:"Hybrid Filter Customer",                    date:"2026-05-12", a:[0,0,1,0,0,1,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -575,6 +612,16 @@ const CHECKOUT_DATA = [
   {advisor:"Daniel Hampton",  customer:"Hybrid Coolant Customer",            date:"2026-05-07", a:[0,1,0,0]},
   {advisor:"Daniel Hampton",  customer:"Unknown Customer (co May7 B)",       date:"2026-05-07", a:[0,1,0,0]},
   {advisor:"Daniel Hampton",  customer:"Miss Chan Becky",                    date:"2026-05-07", a:[0,1,1,0]},
+  // Daniel Hampton — May 12
+  {advisor:"Daniel Hampton",  customer:"Mr. Dash",                            date:"2026-05-12", a:[0,1,0,0]},
+  {advisor:"Daniel Hampton",  customer:"Unknown Customer (co May12 DH A)",    date:"2026-05-12", a:[0,1,0,0]},
+  {advisor:"Daniel Hampton",  customer:"Unknown Customer (hybrid service)",   date:"2026-05-12", a:[0,1,1,0]},
+  {advisor:"Daniel Hampton",  customer:"Unknown Customer (battery replacement)", date:"2026-05-12", a:[0,1,0,0]},
+  {advisor:"Daniel Hampton",  customer:"Unknown Customer (co May12 DH B)",    date:"2026-05-12", a:[0,1,1,0]},
+  {advisor:"Daniel Hampton",  customer:"Unknown Customer with Oil Change",    date:"2026-05-12", a:[0,1,1,0]},
+  {advisor:"Daniel Hampton",  customer:"Mr. Willis",                          date:"2026-05-12", a:[0,1,0,0]},
+  // Harry Havener — May 12
+  {advisor:"Harry Havener",   customer:"Camry Customer (voicemail)",          date:"2026-05-12", a:[0,0,0,0]},
 ];
 
 const CSI_RISKS = [
@@ -654,10 +701,19 @@ const CSI_RISKS = [
     "Significant price discrepancy: customer was quoted approximately $200 but invoiced $373.88",
     "Billing discrepancy not resolved at checkout — strong potential for CSI complaint if not addressed"
   ]},
+  { customer:"Waiting Customer for Two Services", advisor:"Daniel Hampton", date:"2026-05-12", type:"checkin", severity:"medium", risks:[
+    "Customer says, \"I didn't know I had to wait for special service,\" indicating surprise about the need to wait and a lack of prior information about the process",
+    "Customer notes, \"I was here last month and I need to get these done,\" suggesting this is a follow-up visit and implying some urgency or inconvenience",
+    "Interaction ends with the customer agreeing to wait in the waiting area and no further concerns expressed"
+  ]},
+  { customer:"Four Wheeler Customer", advisor:"Cody Self", date:"2026-05-12", type:"checkin", severity:"medium", risks:[
+    "Customer had already been waiting approximately 20 minutes before being helped",
+    "Phone number ending in 6847"
+  ]},
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
-const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self"];
+const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self","Harry Havener"];
 let currentAdvisor = "all";
 let dateFrom = null;
 let dateTo   = null;
@@ -666,7 +722,7 @@ let dateClickCount = 0;
 // ── HELPERS ───────────────────────────────────────────────────
 const colorClass = pct => pct>=50?"green":pct>=25?"yellow":"red";
 const fillClass   = pct => pct>=50?"fill-green":pct>=25?"fill-yellow":"fill-red";
-const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":"pill-brett";
+const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":a==="Harry Havener"?"pill-harry":"pill-brett";
 
 function inDateRange(d) {
   if(!dateFrom) return true;
