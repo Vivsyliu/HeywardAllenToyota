@@ -105,6 +105,9 @@
   .pill-jason { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
   .pill-brett { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
   .pill-harry { background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
+  .pill-john  { background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; }
+  .pill-scott { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
+  .pill-rico  { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
   .score-badge { font-size: 12px; font-weight: 700; }
   .csi-flag { font-size: 11px; color: #ef4444; margin-left: 4px; }
 
@@ -540,6 +543,25 @@ const CHECKIN_RAW = [
   {advisor:"Daniel Hampton", customer:"Scott Customer",                       date:"2026-05-13", a:[0,0,0,1,0,1,1,0]},
   {advisor:"Daniel Hampton", customer:"Renita June",                          date:"2026-05-13", a:[0,1,1,1,1,1,0,0]},
   {advisor:"Daniel Hampton", customer:"Nadine Kaylin / Son's Truck",          date:"2026-05-13", a:[1,0,0,1,0,1,0,0]},
+  // John Lee — May 14
+  {advisor:"John Lee",       customer:"Ms. Duck",                             date:"2026-05-14", a:[0,0,0,1,1,0,0,0]},
+  {advisor:"John Lee",       customer:"Mr. Day",                              date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  // Scott Tackabury — May 14
+  {advisor:"Scott Tackabury", customer:"Grace Dixon",                         date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Nathan Bartlett",                     date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Ms. Thomas",                          date:"2026-05-14", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Marco",                               date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Gregory Wright",                      date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Unknown Customer 10:30 Morning Service", date:"2026-05-14", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Mr. Duga",                            date:"2026-05-14", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Rosa Gonzalez",                       date:"2026-05-14", a:[0,0,0,1,0,1,0,0]},
+  // Rico Mack — May 14
+  {advisor:"Rico Mack",      customer:"Huang",                                date:"2026-05-14", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Rico Mack",      customer:"Mr. Jones",                            date:"2026-05-14", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Rico Mack",      customer:"Ms. Allen",                            date:"2026-05-14", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Rico Mack",      customer:"Ms. Shelton Amanda",                   date:"2026-05-14", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Rico Mack",      customer:"Mr. Gurley",                           date:"2026-05-14", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",      customer:"Maintenance Soon Light Customer",      date:"2026-05-14", a:[0,0,1,1,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -628,6 +650,8 @@ const CHECKOUT_DATA = [
   {advisor:"Harry Havener",   customer:"Camry Customer (voicemail)",          date:"2026-05-12", a:[0,0,0,0]},
   // Daniel Hampton — May 13
   {advisor:"Daniel Hampton",  customer:"Toyo Guard Customer",                 date:"2026-05-13", a:[0,1,1,0]},
+  // Scott Tackabury — May 14
+  {advisor:"Scott Tackabury", customer:"New Tire Customer",                   date:"2026-05-14", a:[0,0,0,0]},
 ];
 
 const CSI_RISKS = [
@@ -716,10 +740,17 @@ const CSI_RISKS = [
     "Customer had already been waiting approximately 20 minutes before being helped",
     "Phone number ending in 6847"
   ]},
+  { customer:"Ms. Shelton Amanda", advisor:"Rico Mack", date:"2026-05-14", type:"checkin", severity:"medium", risks:[
+    "Customer reports repeat visits for the same rattle concern: \"I've been here like two or three times\" and later repeats, \"I've been two or three times for that,\" indicating the issue has not been resolved over multiple visits",
+    "Customer states the rattle only occurs under specific conditions and implies prior diagnostic inconvenience: vehicle has to be left, sit out in the sun, and be driven multiple times for the concern to appear",
+    "Customer reports an additional unresolved concern with the driver seat lumbar: \"The seat pops. The driver's seat... in the lumbar part,\" occurring \"just when you move,\" suggesting ongoing discomfort",
+    "Customer expresses uncertainty about maintenance timing: \"I'm getting close to my next service so I don't know if it's... if I'm too far away. Or if it can be done. I don't know,\" indicating some confusion about service eligibility or timing",
+    "Interaction ends without the customer stating that any of these issues are resolved during this visit"
+  ]},
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
-const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self","Harry Havener"];
+const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self","Harry Havener","John Lee","Scott Tackabury","Rico Mack"];
 let currentAdvisor = "all";
 let dateFrom = null;
 let dateTo   = null;
@@ -728,7 +759,7 @@ let dateClickCount = 0;
 // ── HELPERS ───────────────────────────────────────────────────
 const colorClass = pct => pct>=50?"green":pct>=25?"yellow":"red";
 const fillClass   = pct => pct>=50?"fill-green":pct>=25?"fill-yellow":"fill-red";
-const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":a==="Harry Havener"?"pill-harry":"pill-brett";
+const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":a==="Harry Havener"?"pill-harry":a==="John Lee"?"pill-john":a==="Scott Tackabury"?"pill-scott":a==="Rico Mack"?"pill-rico":"pill-brett";
 
 function inDateRange(d) {
   if(!dateFrom) return true;
