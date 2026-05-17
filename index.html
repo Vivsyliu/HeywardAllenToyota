@@ -604,6 +604,24 @@ const CHECKIN_RAW = [
   {advisor:"Scott Tackabury", customer:"Lumbrini Customer",                    date:"2026-05-15", a:[0,0,0,0,0,0,0,0]},
   {advisor:"Scott Tackabury", customer:"Brake Flush and Cabin Filter Customer", date:"2026-05-15", a:[0,0,1,1,0,0,1,0]},
   {advisor:"Scott Tackabury", customer:"Battery and Front-End Issue Customer", date:"2026-05-15", a:[0,0,1,1,0,0,0,0]},
+  // Daniel Hampton — May 16
+  {advisor:"Daniel Hampton",   customer:"Thomas Holcomb",                          date:"2026-05-16", a:[0,0,0,0,0,0,0,0]},
+  // Scott Tackabury — May 16
+  {advisor:"Scott Tackabury", customer:"Oil Leak Customer",                        date:"2026-05-16", a:[1,0,1,0,0,1,0,0]},
+  {advisor:"Scott Tackabury", customer:"Maintenance Light Customer",               date:"2026-05-16", a:[0,0,0,0,0,0,1,0]},
+  {advisor:"Scott Tackabury", customer:"29k Miles Leveling Kit Truck Customer",    date:"2026-05-16", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Unknown Customer (ci May16 ST)",           date:"2026-05-16", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Regular Maintenance Tire Rotation Customer", date:"2026-05-16", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Maintenance Light and Squeaky Belt Customer", date:"2026-05-16", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"15K Busy Customer",                        date:"2026-05-16", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Scott Tackabury", customer:"15,000-Mile Maintenance Customer",         date:"2026-05-16", a:[0,0,0,0,0,0,1,0]},
+  {advisor:"Scott Tackabury", customer:"Tire Install with New Wheels Customer",    date:"2026-05-16", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Scott Tackabury", customer:"Oil Change and Tire Rotation Customer",    date:"2026-05-16", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Sher Holman",                              date:"2026-05-16", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury", customer:"Oil Change Customer from Athens",          date:"2026-05-16", a:[0,0,0,0,0,0,0,0]},
+  // Rico Mack — May 16
+  {advisor:"Rico Mack",       customer:"Mr. Johnson and Mr. Brown",               date:"2026-05-16", a:[1,0,0,1,0,0,0,0]},
+  {advisor:"Rico Mack",       customer:"Mr. McDaniel",                            date:"2026-05-16", a:[0,0,0,1,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -698,6 +716,8 @@ const CHECKOUT_DATA = [
   {advisor:"Harry Havener",   customer:"Unknown Customer (co May14 HH)",      date:"2026-05-14", a:[0,0,0,0]},
   // Scott Tackabury — May 15
   {advisor:"Scott Tackabury", customer:"Customer with cross-threaded rear lug nut", date:"2026-05-15", a:[0,1,0,0]},
+  // Scott Tackabury — May 16
+  {advisor:"Scott Tackabury", customer:"Picking Up Customer 1",                   date:"2026-05-16", a:[0,0,0,0]},
 ];
 
 const CSI_RISKS = [
@@ -798,6 +818,12 @@ const CSI_RISKS = [
     "Customer reports an additional unresolved concern with the driver seat lumbar: \"The seat pops. The driver's seat... in the lumbar part,\" occurring \"just when you move,\" suggesting ongoing discomfort",
     "Customer expresses uncertainty about maintenance timing: \"I'm getting close to my next service so I don't know if it's... if I'm too far away. Or if it can be done. I don't know,\" indicating some confusion about service eligibility or timing",
     "Interaction ends without the customer stating that any of these issues are resolved during this visit"
+  ]},
+  { customer:"Oil Leak Customer", advisor:"Scott Tackabury", date:"2026-05-16", type:"checkin", severity:"high", risks:[
+    "Customer reports repeat visits for an unresolved oil leak — vehicle ran bone dry after a prior oil change, raising quality-of-work concerns",
+    "Customer explicitly states growing frustration: 'talking in circles,' suggesting the interaction is not resolving the core issue",
+    "Customer questions the quality of the prior oil change directly, implying a potential liability or trust issue",
+    "Interaction ends with agreement to proceed with an oil consumption test, but no resolution or clear reassurance provided to the customer"
   ]},
 ];
 
