@@ -108,6 +108,7 @@
   .pill-john  { background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; }
   .pill-scott { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
   .pill-rico  { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+  .pill-kevin { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
   .score-badge { font-size: 12px; font-weight: 700; }
   .csi-flag { font-size: 11px; color: #ef4444; margin-left: 4px; }
 
@@ -643,6 +644,78 @@ const CHECKIN_RAW = [
   {advisor:"Brett Self",       customer:"Mr. Smith Tundra Spark Plug Customer",   date:"2026-05-19", a:[0,0,1,1,0,1,1,0]},
   // Scott Tackabury — May 19
   {advisor:"Scott Tackabury", customer:"Oil Change and Brake Quote Customer",     date:"2026-05-19", a:[0,0,0,1,0,0,0,0]},
+  // Kevin Senderhauf — May 20
+  {advisor:"Kevin Senderhauf", customer:"Road Hazard Tire Customer",                      date:"2026-05-20", a:[0,0,0,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Al Mendenhall",                                  date:"2026-05-20", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Rebecca Holloway Girlfriend Car",                date:"2026-05-20", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Ms. Pierce",                                     date:"2026-05-20", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Steve McConnell",                                date:"2026-05-20", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Florentino",                                     date:"2026-05-20", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Mr. Leam",                                       date:"2026-05-20", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Matthew Manna",                                  date:"2026-05-20", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Treywick Oil Change Customer",                   date:"2026-05-20", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Mitchell Red Fox Trail Customer",                date:"2026-05-20", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Unknown Customer",                               date:"2026-05-20", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Jessica McDonald",                               date:"2026-05-20", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Tim Jump's Daughter",                            date:"2026-05-20", a:[1,0,1,0,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"South Millage 2:49 Appointment Customer",       date:"2026-05-20", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Fisher",                                         date:"2026-05-20", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Chris Sims",                                     date:"2026-05-20", a:[0,0,0,1,0,0,0,0]},
+  // Harry Havener — May 20
+  {advisor:"Harry Havener",    customer:"Blair",                                          date:"2026-05-20", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Harry Havener",    customer:"Ms. Black",                                      date:"2026-05-20", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Harry Havener",    customer:"Terry",                                          date:"2026-05-20", a:[0,0,1,1,0,0,0,0]},
+  // Scott Tackabury — May 21
+  {advisor:"Scott Tackabury",  customer:"Water Pump Timing Belt Customer",                date:"2026-05-21", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Mr. Walters",                                   date:"2026-05-21", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Ms. Alder",                                     date:"2026-05-21", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Knox",                                           date:"2026-05-21", a:[1,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"AC Issue Customer",                              date:"2026-05-21", a:[0,0,0,1,0,1,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Oil Change Tire Rotation Customer",              date:"2026-05-21", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Mother with child",                              date:"2026-05-21", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Tyler",                                          date:"2026-05-21", a:[0,0,0,0,0,0,1,0]},
+  {advisor:"Scott Tackabury",  customer:"Peter",                                          date:"2026-05-21", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"Hybrid Customer with Moonroof and Blinker Concerns", date:"2026-05-21", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Scott Tackabury",  customer:"David",                                          date:"2026-05-21", a:[0,0,0,1,0,1,1,0]},
+  // Harry Havener — May 21
+  {advisor:"Harry Havener",    customer:"Liftgate Problem Customer",                      date:"2026-05-21", a:[0,0,1,1,1,0,1,0]},
+  {advisor:"Harry Havener",    customer:"Wayne",                                          date:"2026-05-21", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Harry Havener",    customer:"82k Miles Customer",                             date:"2026-05-21", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",    customer:"Brady Kaylee",                                   date:"2026-05-21", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener",    customer:"Raymond",                                        date:"2026-05-21", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Harry Havener",    customer:"Spade",                                          date:"2026-05-21", a:[0,0,0,0,0,0,0,0]},
+  // Kevin Senderhauf — May 21
+  {advisor:"Kevin Senderhauf", customer:"Rumson Road Customer 8:30",                      date:"2026-05-21", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Payne",                                          date:"2026-05-21", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Waiters",                                        date:"2026-05-21", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Kelsey",                                         date:"2026-05-21", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Spartan Estates Customer",                       date:"2026-05-21", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Robert / Smooth",                                date:"2026-05-21", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Summer Davidson",                                date:"2026-05-21", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Mahanty",                                        date:"2026-05-21", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Chandler Bridge 15000 Mile Customer",            date:"2026-05-21", a:[0,0,0,0,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Emmy Garrison",                                  date:"2026-05-21", a:[0,0,0,1,1,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Sam",                                            date:"2026-05-21", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Dan Berlinski",                                  date:"2026-05-21", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Cherokee Circle Customer",                       date:"2026-05-21", a:[1,0,1,1,0,0,1,0]},
+  // Kevin Senderhauf — May 22
+  {advisor:"Kevin Senderhauf", customer:"Hensley Hindsley Customer",                      date:"2026-05-22", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Ms. Johnson",                                    date:"2026-05-22", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Brake pads and rotors customer",                 date:"2026-05-22", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Palmer Address Customer",                        date:"2026-05-22", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Susan Bly",                                      date:"2026-05-22", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Linda Shearer",                                  date:"2026-05-22", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"La Vista Customer 18,000 Miles",                 date:"2026-05-22", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Ted",                                            date:"2026-05-22", a:[0,0,0,1,0,1,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Venza Customer",                                 date:"2026-05-22", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Chance",                                         date:"2026-05-22", a:[0,0,0,0,0,1,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"156 South Broad Street Customer",                date:"2026-05-22", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Last name Taro Customer",                        date:"2026-05-22", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf", customer:"Elaine Polakowski",                              date:"2026-05-22", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Yearwood Road Customer",                         date:"2026-05-22", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Kevin Senderhauf", customer:"Spillers",                                       date:"2026-05-22", a:[0,0,1,1,0,0,1,0]},
+  // Daniel Hampton — May 22
+  {advisor:"Daniel Hampton",   customer:"Steve Barbaro",                                  date:"2026-05-22", a:[0,1,1,1,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -850,7 +923,7 @@ const CSI_RISKS = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
-const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self","Harry Havener","John Lee","Scott Tackabury","Rico Mack"];
+const ALL_ADVISORS = ["all","Cody Self","Daniel Hampton","Jason Trapanese","Brett Self","Harry Havener","John Lee","Scott Tackabury","Rico Mack","Kevin Senderhauf"];
 let currentAdvisor = "all";
 let dateFrom = null;
 let dateTo   = null;
@@ -859,7 +932,7 @@ let dateClickCount = 0;
 // ── HELPERS ───────────────────────────────────────────────────
 const colorClass = pct => pct>=50?"green":pct>=25?"yellow":"red";
 const fillClass   = pct => pct>=50?"fill-green":pct>=25?"fill-yellow":"fill-red";
-const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":a==="Harry Havener"?"pill-harry":a==="John Lee"?"pill-john":a==="Scott Tackabury"?"pill-scott":a==="Rico Mack"?"pill-rico":"pill-brett";
+const pillClass   = a => a==="Cody Self"?"pill-cody":a==="Daniel Hampton"?"pill-daniel":a==="Jason Trapanese"?"pill-jason":a==="Harry Havener"?"pill-harry":a==="John Lee"?"pill-john":a==="Scott Tackabury"?"pill-scott":a==="Rico Mack"?"pill-rico":a==="Kevin Senderhauf"?"pill-kevin":"pill-brett";
 
 function inDateRange(d) {
   if(!dateFrom) return true;
