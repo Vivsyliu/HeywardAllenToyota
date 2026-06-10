@@ -945,6 +945,8 @@ const CHECKIN_RAW = [
   {advisor:"Rico Mack",        customer:"Jonah Parker",                                   date:"2026-06-05", a:[0,1,1,1,0,0,1,0]},
   // Scott Tackabury — June 8
   {advisor:"Scott Tackabury",  customer:"oil change and tire rotation",                   date:"2026-06-08", a:[0,0,0,0,0,0,0,0]},
+  // Kevin Senderhauf — June 9
+  {advisor:"Kevin Senderhauf", customer:"tire sensor replacement",                        date:"2026-06-09", a:[0,0,0,1,0,1,1,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1198,6 +1200,12 @@ const CSI_RISKS = [
     "Customer expresses confusion/concern about infotainment/CarPlay issues and Toyota's handling: \"Here's what I don't understand. You call Toyota. It's like, uh. Oh yeah, we have no record of complaints.\"",
     "Customer implies skepticism that Toyota acknowledges known issues, suggesting some dissatisfaction with the broader brand experience, even though the advisor attempts to reassure them.",
     "Interaction ends without the customer clearly confirming that their concerns (brake squeal and interface problem) are resolved, leaving potential for lingering dissatisfaction."
+  ]},
+  { customer:"tire sensor replacement", advisor:"Kevin Senderhauf", date:"2026-06-09", type:"checkin", severity:"medium", risks:[
+    "Customer indicates multiple repeat visits for the same concern: \"Yeah. This is probably our second, third time coming back.\"",
+    "Customer references prior expectation that dealership would resolve the issue: \"When I talked about it, y' all said y' all gonna take care of it.\"",
+    "Issue (tire sensor) still not resolved during this visit and customer must return again (need to make an appointment and come back tomorrow).",
+    "Interaction ends without the customer voicing anger or pushback, but with the concern still pending resolution."
   ]},
 ];
 
