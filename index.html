@@ -947,6 +947,8 @@ const CHECKIN_RAW = [
   {advisor:"Scott Tackabury",  customer:"oil change and tire rotation",                   date:"2026-06-08", a:[0,0,0,0,0,0,0,0]},
   // Kevin Senderhauf — June 9
   {advisor:"Kevin Senderhauf", customer:"tire sensor replacement",                        date:"2026-06-09", a:[0,0,0,1,0,1,1,0]},
+  // Rico Mack — June 10
+  {advisor:"Rico Mack",        customer:"Ms. Smith",                                      date:"2026-06-10", a:[0,0,1,1,0,0,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1206,6 +1208,12 @@ const CSI_RISKS = [
     "Customer references prior expectation that dealership would resolve the issue: \"When I talked about it, y' all said y' all gonna take care of it.\"",
     "Issue (tire sensor) still not resolved during this visit and customer must return again (need to make an appointment and come back tomorrow).",
     "Interaction ends without the customer voicing anger or pushback, but with the concern still pending resolution."
+  ]},
+  { customer:"Ms. Smith", advisor:"Rico Mack", date:"2026-06-10", type:"checkin", severity:"medium", risks:[
+    "Customer describes repeated confusion about appointment process: \"this is the second service I'll have now. And when I called and make an appointment...they're just like, you just show up\" but then when she arrives they ask, \"do you have an appointment?\"",
+    "Customer feels the situation makes her look like a walk-in who didn't plan: \"And then it seems like, I don't have an appointment. I'm like, but I did call. I swear to God, I called. I'm not just pulling up like, yes, ma'am, service my car.\"",
+    "Customer expresses concern about being a burden due to process disconnect: \"I understand...there can be disconnect between a front desk in the back... So I just don't want to be a nuisance and be like, I'm here.\"",
+    "Interaction ends with the customer acknowledging the advisor and thanking them, with no additional issues raised about the actual service or vehicle."
   ]},
 ];
 
