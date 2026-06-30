@@ -1417,6 +1417,45 @@ const CHECKIN_RAW = [
   {advisor:"Kevin Senderhauf",    customer:"Fernandez",                                         date:"2026-06-28", a:[1,0,1,1,0,0,1,0]},
   {advisor:"Kevin Senderhauf",    customer:"6786898089",                                        date:"2026-06-28", a:[1,0,1,1,0,0,1,0]},
   {advisor:"Kevin Senderhauf",    customer:"oil change, tire rotation",                         date:"2026-06-28", a:[1,0,1,1,1,0,0,0]},
+
+  // Harry Havener — June 30 (daytime)
+  {advisor:"Harry Havener",       customer:"oil change, tire rotation, headlight restoration and AC recharge", date:"2026-06-30", a:[0,0,0,1,0,1,1,0]},
+  // Brett Self — June 29 (evening)
+  {advisor:"Brett Self",          customer:"HOAR",                                              date:"2026-06-29", a:[1,1,1,1,0,0,0,0]},
+  {advisor:"Brett Self",          customer:"oil change and tire rotation",                      date:"2026-06-29", a:[0,0,0,1,0,1,1,0]},
+  {advisor:"Brett Self",          customer:"Suzanne",                                           date:"2026-06-29", a:[0,0,1,0,0,0,0,0]},
+
+  // Kevin Senderhauf — June 30
+  {advisor:"Kevin Senderhauf",    customer:"Marshall",                                          date:"2026-06-30", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"maintenance required",                              date:"2026-06-30", a:[0,0,0,0,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"15K or the next service",                           date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"service and tires customer",                        date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"614-323-7280",                                      date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Russell",                                           date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Piper",                                             date:"2026-06-30", a:[1,1,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"oil change and battery tray recall",                date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Ruby show",                                         date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Katie",                                             date:"2026-06-30", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Fuchs",                                             date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Colbert",                                           date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"Meg Spencer",                                       date:"2026-06-30", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Kevin Senderhauf",    customer:"770-778-9016",                                      date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  // Harry Havener — June 30
+  {advisor:"Harry Havener",       customer:"oil change and power service plus safety recall",   date:"2026-06-30", a:[0,0,0,1,0,1,1,0]},
+  {advisor:"Harry Havener",       customer:"oil change, tire rotation",                         date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"706-202-6655",                                      date:"2026-06-30", a:[1,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Henry",                                             date:"2026-06-30", a:[0,1,1,1,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"678-684-9977",                                      date:"2026-06-30", a:[1,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Wong",                                              date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"tire rotation and inspection",                      date:"2026-06-30", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Jenna",                                             date:"2026-06-30", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Tires and maintenance light",                       date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Echol",                                             date:"2026-06-30", a:[0,0,1,0,0,0,0,0]},
+  // Jason Trapanese — June 30 (evening)
+  {advisor:"Jason Trapanese",     customer:"oil change with mid-drain oil sample collection",   date:"2026-06-30", a:[0,0,0,1,0,0,0,0]},
+  {advisor:"Jason Trapanese",     customer:"oil change and tire rotation",                      date:"2026-06-30", a:[0,0,0,1,0,1,0,0]},
+  // Daniel Hampton — June 30 (evening)
+  {advisor:"Daniel Hampton",      customer:"Beverly Norwood",                                   date:"2026-06-30", a:[0,1,1,1,1,0,1,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1731,6 +1770,12 @@ const CSI_RISKS = [
     "Customer describes inconvenience and minor injury caused by that prior visit: 'I had to like bust my knuckle to get on the side of the road and pop it back up and then I had to come back here.'",
     "Customer expectation of compensation from prior issue: 'I was supposed to get a free one from here,' implying this prior problem is still salient to her satisfaction.",
     "Interaction ends in the transcript while advisor steps away; no resolution or confirmation of the promised free oil change is captured."
+  ]},
+  { customer:"oil change, tire rotation, headlight restoration and AC recharge", advisor:"Harry Havener", date:"2026-06-30", type:"checkin", severity:"high", risks:[
+    "Customer explicitly notes excessive wait with no progress: '647273. An hour and a half and no one has touched Dante's car. I want you to understand that.'",
+    "Customer emphasizes lack of action on the vehicle despite being there for routine services: 'What's it in here for? Uh, oil change, tire rotation, headlight restoration and... AC recharge.'",
+    "Customer pushes back on process/priority handling, indicating it matters whether the vehicle is a drop off: 'Is it a drop off? It should. It does matter. It does matter. That's why we mark it.'",
+    "Interaction in transcript ends with the wait-time concern unresolved and no indication the vehicle work has begun."
   ]},
   { customer:"tire rotation", advisor:"Rico Mack", date:"2026-06-28", type:"checkout", severity:"high", risks:[
     "Customer explicitly complains about wait time: 'I've been up here for like 45 minutes.'",
