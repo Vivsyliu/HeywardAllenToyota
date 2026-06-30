@@ -1457,6 +1457,32 @@ const CHECKIN_RAW = [
   {advisor:"Jason Trapanese",     customer:"oil change and tire rotation",                      date:"2026-06-30", a:[0,0,0,1,0,1,0,0]},
   // Daniel Hampton — June 30 (evening)
   {advisor:"Daniel Hampton",      customer:"Beverly Norwood",                                   date:"2026-06-30", a:[0,1,1,1,1,0,1,0]},
+  // Harry Havener — June 30 (continued)
+  {advisor:"Harry Havener",       customer:"470-330-0909",                                      date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Adam Pettigrew",                                    date:"2026-06-30", a:[0,1,1,0,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"Kathy",                                             date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"tire rotation and a health check",                  date:"2026-06-30", a:[0,0,1,0,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"Green Chin",                                        date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"Santia",                                            date:"2026-06-30", a:[0,0,0,1,1,0,1,0]},
+  {advisor:"Harry Havener",       customer:"open recall hybrid traction cables",                date:"2026-06-30", a:[0,0,0,1,0,0,1,0]},
+  {advisor:"Harry Havener",       customer:"El",                                                date:"2026-06-30", a:[0,0,1,0,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"Patricia Parks",                                    date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"tire rotation",                                     date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"rotate balance, oil change",                        date:"2026-06-30", a:[0,0,0,0,0,0,0,0]},
+  // Rico Mack — June 30
+  {advisor:"Rico Mack",           customer:"tire rotation and brake flush",                     date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Natalie",                                           date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Austin Moyland",                                    date:"2026-06-30", a:[0,1,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Andrew",                                            date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Mr. Tim",                                           date:"2026-06-30", a:[0,0,1,1,0,1,1,0]},
+  {advisor:"Rico Mack",           customer:"tire rotation, oil change, and multi point inspection", date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Rico Mack",           customer:"Molly Star",                                        date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Ms. Gonzalez",                                      date:"2026-06-30", a:[0,0,1,1,0,1,0,0]},
+  {advisor:"Rico Mack",           customer:"platinum oil change and tire rotation",              date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Ms. West",                                          date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"Marilyn Rivera",                                    date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
+  {advisor:"Rico Mack",           customer:"oil change and tire rotation with multipoint inspection", date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  {advisor:"Rico Mack",           customer:"Mr. Mitchell",                                      date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1608,6 +1634,11 @@ const CHECKOUT_DATA = [
   {advisor:"Rico Mack",           customer:"oil and filter change",                             date:"2026-06-28", a:[0,1,0,0]},
   // Kevin Senderhauf — June 28
   {advisor:"Kevin Senderhauf",    customer:"oil and filter change and tire rotation",            date:"2026-06-28", a:[0,1,1,0]},
+  // Harry Havener — June 30
+  {advisor:"Harry Havener",       customer:"Tundra AC condenser radiator",                      date:"2026-06-30", a:[0,0,0,0]},
+  {advisor:"Harry Havener",       customer:"tires and fuel system",                             date:"2026-06-30", a:[0,1,0,0]},
+  // Rico Mack — June 30
+  {advisor:"Rico Mack",           customer:"get you taken care",                                date:"2026-06-30", a:[0,0,0,0]},
 ];
 
 const CSI_RISKS = [
@@ -1772,11 +1803,18 @@ const CSI_RISKS = [
     "Customer expectation of compensation from prior issue: 'I was supposed to get a free one from here,' implying this prior problem is still salient to her satisfaction.",
     "Interaction ends in the transcript while advisor steps away; no resolution or confirmation of the promised free oil change is captured."
   ]},
-  { customer:"oil change, tire rotation, headlight restoration and AC recharge", advisor:"Harry Havener", date:"2026-06-30", type:"checkin", severity:"high", risks:[
-    "Customer explicitly notes excessive wait with no progress: '647273. An hour and a half and no one has touched Dante's car. I want you to understand that.'",
-    "Customer emphasizes lack of action on the vehicle despite being there for routine services: 'What's it in here for? Uh, oil change, tire rotation, headlight restoration and... AC recharge.'",
-    "Customer pushes back on process/priority handling, indicating it matters whether the vehicle is a drop off: 'Is it a drop off? It should. It does matter. It does matter. That's why we mark it.'",
-    "Interaction in transcript ends with the wait-time concern unresolved and no indication the vehicle work has begun."
+  { customer:"Evil size", advisor:"Harry Havener", date:"2026-06-30", type:"checkin", severity:"high", risks:[
+    "Customer reports repeated unresolved issue: 'I brought it in about four separate times... about the alignment' and 'that's been in here literally at least four times for the alignment.'",
+    "Customer states the problem persists after prior services: 'Still, still cocked about 2, 3, 4, 5 degrees to the right... the whole time' and 'every time that it's been fixed, it's still to the right. It's never been back to the left. Or centered.'",
+    "Customer describes physical discomfort and major use-case impact: 'My wrist gets sort [sore]. I'm about to go 8 hour drive each way this weekend' after already driving 'six hours each way' with the issue unresolved.",
+    "Interaction ends after customer explains ongoing concern; no indication in transcript that the alignment issue has yet been resolved on this visit."
+  ]},
+  { customer:"Tundra AC condenser radiator", advisor:"Harry Havener", date:"2026-06-30", type:"checkout", severity:"medium", risks:[
+    "Customer indicates prior AC repair did not resolve the issue fully at first: 'part of the air conditioner they fixed, but it didn't fix it. So then... I got the rest of it. At least he's working.'",
+    "Customer expresses surprise about insurance/parts options: 'Well, I said, I didn't know that. ...you can ask on your insurance to have regular parts, not aftermarket parts. And I didn't know that. So I'm gonna have to check on my insurance policy now.'",
+    "Customer appears frustrated with low insurance valuation vs OEM pricing: 'they want to give 80 for the radiator and 72.50 for the condenser for aftermarket. She told me over there at the collision, they'd be 400 a piece. It's like...'",
+    "Customer states time pressure for repair before trip: 'Well, I hope it'll work because I'm supposed to go out of town Thursday' indicating concern about reliability and timing.",
+    "Interaction ends with the customer saying 'Thanks. Have a good day' and no explicit unresolved complaint directed at the dealership, but with ongoing concern about insurance reimbursement and parts value."
   ]},
   { customer:"tire rotation", advisor:"Rico Mack", date:"2026-06-28", type:"checkout", severity:"high", risks:[
     "Customer explicitly complains about wait time: 'I've been up here for like 45 minutes.'",
