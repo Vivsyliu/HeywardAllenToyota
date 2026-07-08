@@ -1483,6 +1483,8 @@ const CHECKIN_RAW = [
   {advisor:"Rico Mack",           customer:"Marilyn Rivera",                                    date:"2026-06-30", a:[0,0,1,1,0,0,0,0]},
   {advisor:"Rico Mack",           customer:"oil change and tire rotation with multipoint inspection", date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
   {advisor:"Rico Mack",           customer:"Mr. Mitchell",                                      date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
+  // Rico Mack — July 7
+  {advisor:"Rico Mack",           customer:"Mr. Wilson",                                        date:"2026-07-07", a:[0,0,1,1,0,1,1,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1815,6 +1817,12 @@ const CSI_RISKS = [
     "Customer appears frustrated with low insurance valuation vs OEM pricing: 'they want to give 80 for the radiator and 72.50 for the condenser for aftermarket. She told me over there at the collision, they'd be 400 a piece. It's like...'",
     "Customer states time pressure for repair before trip: 'Well, I hope it'll work because I'm supposed to go out of town Thursday' indicating concern about reliability and timing.",
     "Interaction ends with the customer saying 'Thanks. Have a good day' and no explicit unresolved complaint directed at the dealership, but with ongoing concern about insurance reimbursement and parts value."
+  ]},
+  { customer:"Mr. Wilson", advisor:"Rico Mack", date:"2026-07-07", type:"checkin", severity:"high", risks:[
+    "Customer reports repeated prior issues with this dealership: 'I brought my Prius in, uh, last week. Uh, and again, they didn't put the... oil cover... the protector' and 'about every other time, they don't do it.'",
+    "Customer states they have had to fix the issue themselves: 'I can. I've done it.', implying inconvenience and lack of confidence in consistent service quality.",
+    "Customer expresses clear dissatisfaction with value relative to service quality: 'I shouldn't have to. Not for a premium oil change.'",
+    "Interaction ends after setting expectations on time with no further new concerns, but the repeated, unresolved prior issue related to service quality poses survey-risk."
   ]},
   { customer:"tire rotation", advisor:"Rico Mack", date:"2026-06-28", type:"checkout", severity:"high", risks:[
     "Customer explicitly complains about wait time: 'I've been up here for like 45 minutes.'",
