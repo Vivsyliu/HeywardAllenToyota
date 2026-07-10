@@ -1485,6 +1485,8 @@ const CHECKIN_RAW = [
   {advisor:"Rico Mack",           customer:"Mr. Mitchell",                                      date:"2026-06-30", a:[0,0,1,1,0,0,1,0]},
   // Rico Mack — July 7
   {advisor:"Rico Mack",           customer:"Mr. Wilson",                                        date:"2026-07-07", a:[0,0,1,1,0,1,1,0]},
+  // Kevin Senderhauf — July 10
+  {advisor:"Kevin Senderhauf",    customer:"Lorna Gaines",                                      date:"2026-07-10", a:[0,0,1,1,0,1,0,0]},
 ];
 
 const CO_Q     = ["Next Appt Scheduled","Active Delivery","Anything Else?","Follow-Up Explained"];
@@ -1817,6 +1819,12 @@ const CSI_RISKS = [
     "Customer appears frustrated with low insurance valuation vs OEM pricing: 'they want to give 80 for the radiator and 72.50 for the condenser for aftermarket. She told me over there at the collision, they'd be 400 a piece. It's like...'",
     "Customer states time pressure for repair before trip: 'Well, I hope it'll work because I'm supposed to go out of town Thursday' indicating concern about reliability and timing.",
     "Interaction ends with the customer saying 'Thanks. Have a good day' and no explicit unresolved complaint directed at the dealership, but with ongoing concern about insurance reimbursement and parts value."
+  ]},
+  { customer:"Lorna Gaines", advisor:"Kevin Senderhauf", date:"2026-07-10", type:"checkin", severity:"high", risks:[
+    "Customer's mother explicitly states strong dissatisfaction: 'I'm upset. When I made the ... appointment. If it was for both of them, they should have made a early appointment while the diagnosis was here.', indicating frustration with how the appointment for both wipers and mirror was handled/scheduled.",
+    "Earlier, another customer in the environment says, 'Six times you people call me to come down here... and I got to sit and wait. That happened last time,' reflecting operational/wait-time frustrations in the dealership environment that can negatively color overall experience, even if not directly tied to this RO.",
+    "Customer and mother are dealing with an unresolved rearview mirror concern; they came expecting it to be addressed and then learn, 'we can't do it today ... the windshield people have already been and left,' leading to disappointment about incomplete service relative to their expectations.",
+    "Interaction ends with the mother still focused on resolving issues (wipers diagnosis and mirror reattachment) and having voiced being 'upset' about scheduling/coordination, which is likely to influence survey responses."
   ]},
   { customer:"Mr. Wilson", advisor:"Rico Mack", date:"2026-07-07", type:"checkin", severity:"high", risks:[
     "Customer reports repeated prior issues with this dealership: 'I brought my Prius in, uh, last week. Uh, and again, they didn't put the... oil cover... the protector' and 'about every other time, they don't do it.'",
